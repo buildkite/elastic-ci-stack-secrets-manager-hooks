@@ -50,7 +50,7 @@ if [[ "${BUILDKITE_REPO:-}" =~ ^git ]] ; then
     if in_array "$key" "${secrets[@]}" ; then
       echo "Found ssh-key at ${key}" >&2;
 
-      if ! ssh_key=$(sm_secret_get "$key") ; then
+      if ! ssh_key=$(sm_secret_get "$key" "${BUILDKITE_SECRETS_TYPE:-SecretBinary}") ; then
         echo "+++ :warning: Failed to get secret $key" >&2;
         exit 1
       fi
