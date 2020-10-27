@@ -39,6 +39,7 @@ fi
 if [[ "${BUILDKITE_REPO:-}" =~ ^git ]] ; then
   ssh_key_paths=(
     "${BUILDKITE_SECRETS_PREFIX}/${BUILDKITE_PIPELINE_SLUG}/ssh-private-key"
+    "${BUILDKITE_SECRETS_PREFIX}/ssh-private-key"
   )
 
   # Look in our key paths in order, but we'll load them all
@@ -71,6 +72,7 @@ fi
 if [[ "${BUILDKITE_REPO:-}" =~ ^http ]] ; then
   git_credentials_paths=(
     "${BUILDKITE_SECRETS_PREFIX}/${BUILDKITE_PIPELINE_SLUG}/git-credentials"
+    "${BUILDKITE_SECRETS_PREFIX}/git-credentials"
   )
 
   git_credentials=()
