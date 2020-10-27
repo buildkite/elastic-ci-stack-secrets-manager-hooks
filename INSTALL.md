@@ -9,11 +9,11 @@ git clone https://github.com/buildkite/elastic-ci-stack-secrets-manager-hooks.gi
 
 Modify your agent's global hooks (see [https://buildkite.com/docs/agent/v3/hooks#global-hooks](https://buildkite.com/docs/agent/v3/hooks#global-hooks)):
 
-## `${BUILDKITE_ROOT}/hooks/pre-command`
+## `${BUILDKITE_ROOT}/hooks/pre-checkout`
 
 ```bash
 if [[ "${SM_SECRETS_HOOKS_ENABLED:-1}" == "1" ]] ; then
-  source /buildkite/sm_secrets/hooks/pre-command
+  source /buildkite/sm_secrets/hooks/pre-checkout
 fi
 ```
 
