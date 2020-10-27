@@ -39,6 +39,7 @@ fi
 if [[ "${BUILDKITE_REPO:-}" =~ ^git ]] ; then
   ssh_key_paths=(
     "${BUILDKITE_SECRETS_PREFIX}/${BUILDKITE_PIPELINE_SLUG}/ssh-private-key"
+    "${BUILDKITE_SECRETS_PREFIX}/ssh-private-key"
   )
 
   # Look in our key paths in order, but we'll load them all
@@ -49,7 +50,7 @@ if [[ "${BUILDKITE_REPO:-}" =~ ^git ]] ; then
     if in_array "$key" "${secrets[@]}" ; then
       echo "Found ssh-key at ${key}" >&2;
 
-      if ! ssh_key=$(sm_secret_get "$key") ; then
+      if ! ssh_key=$(sm_secret_get "$key" "${BUILDKITE_SECRETS_TYPE:-SecretBinary}") ; then
         echo "+++ :warning: Failed to get secret $key" >&2;
         exit 1
       fi
@@ -71,6 +72,7 @@ fi
 if [[ "${BUILDKITE_REPO:-}" =~ ^http ]] ; then
   git_credentials_paths=(
     "${BUILDKITE_SECRETS_PREFIX}/${BUILDKITE_PIPELINE_SLUG}/git-credentials"
+    "${BUILDKITE_SECRETS_PREFIX}/git-credentials"
   )
 
   git_credentials=()
